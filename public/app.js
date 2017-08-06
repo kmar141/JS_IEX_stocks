@@ -20,13 +20,15 @@ var requestComplete = function(){
 };
 
 var populateList = function(currency){
-  var il = document.getElementById('currency-list');
+  var ul = document.getElementById('currency-list');
 
   for(var key in currency.rates){
         var a = document.createElement('a');
+        var li = document.createElement('li');
         a.innerText = key + ": " + currency.rates[key];
         a.href = "http://api.fixer.io/latest?base=" + key;
-        il.appendChild(a);
+        li.appendChild(a);
+        ul.appendChild(li);
       }
   var h1 = document.getElementById('h1');
   h1.innerText = currency.base + " price " + " on " + currency.date;
