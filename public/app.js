@@ -1,5 +1,5 @@
 var app = function(){
-  var url = "https://api.iextrading.com/1.0";
+  var url = "http://api.fixer.io/latest";
   
   makeRequest(url, requestComplete);
 }
@@ -14,22 +14,21 @@ var makeRequest = function(url, callback){
 var requestComplete = function(){
   if(this.status !== 200) return;
   var jsonString = this.responseText;
-  var stocks = JSON.parse(jsonString);
-  populateList(stocks);
+  var currency = JSON.parse(jsonString);
+  console.log(currency)
+  populateList(currency);
 };
 
-var populateList = function(stocks){
+var populateList = function(currency){
   var ul = document.getElementById('stock-list');
-  while(ul.firstChild){
-    ul.removeChild(ul.firstChild);
-  }
-  stocks.forEach(function(stock){
-    var li = document.createElement('li');
-    li.innerText = stock.companyName;
-    ul.appendChild(li);
-    var li2 = document.createElement("li");
-    li2.src = stock.symbol;
-    li.appendChild(li2)
-  })
+
+  for(var key in currency.rates){
+        var li = document.createElement('li');
+        li.innerText = key + ": " + currency.rates[key];
+        ul.appendChild(li);
+      }
+  var h1 = document.getElementById('h1');
+  h1.innerText = currency.base + " price " + " on " + currency.date;
+
 }
 window.addEventListener('load', app);
