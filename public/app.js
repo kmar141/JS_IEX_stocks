@@ -20,12 +20,13 @@ var requestComplete = function(){
 };
 
 var populateList = function(currency){
-  var ul = document.getElementById('stock-list');
+  var il = document.getElementById('currency-list');
 
   for(var key in currency.rates){
-        var li = document.createElement('li');
-        li.innerText = key + ": " + currency.rates[key];
-        ul.appendChild(li);
+        var a = document.createElement('a');
+        a.innerText = key + ": " + currency.rates[key];
+        a.href = "http://api.fixer.io/latest?base=" + key;
+        il.appendChild(a);
       }
   var h1 = document.getElementById('h1');
   h1.innerText = currency.base + " price " + " on " + currency.date;
